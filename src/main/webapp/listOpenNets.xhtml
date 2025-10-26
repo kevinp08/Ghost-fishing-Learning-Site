@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+  <title>Offene Geisternetze</title>
+</h:head>
+
+<h:body>
+<h:form id="form">
+  <h2>Liste der offenen Geisternetze</h2>
+
+  <h:dataTable value="#{listController.openNets}" var="n" border="1">
+    <h:column>
+      <f:facet name="header">Koordinaten</f:facet>
+      #{n.latitude}, #{n.longitude}
+    </h:column>
+    <h:column>
+      <f:facet name="header">Größe</f:facet>
+      #{n.approxSize}
+    </h:column>
+    <h:column>
+      <f:facet name="header">Status</f:facet>
+      #{n.status}
+    </h:column>
+    <h:column>
+      <f:facet name="header">Aktion</f:facet>
+      <h:commandLink value="Übernehmen" action="#{listController.claim(n.id)}" rendered="#{n.retriever == null}"/>
+      <h:commandLink value="Geborgen" action="#{listController.recover(n.id)}" rendered="#{n.retriever != null}"/>
+    </h:column>
+  </h:dataTable>
+
+  <br/>
+  <h:link outcome="index" value="Zurück zur Startseite"/>
+</h:form>
+</h:body>
+</html>
