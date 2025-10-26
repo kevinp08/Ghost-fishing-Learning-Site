@@ -1,0 +1,26 @@
+<persistence version="2.2"
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+  <!-- Name der Persistence Unit: ghostnetsPU -->
+  <persistence-unit name="ghostnetsPU" transaction-type="JTA">
+    <!-- JPA-Provider -->
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <properties>
+      <!-- JDBC-Verbindung zu MySQL -->
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ghostnets?serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.user" value="ghost"/>
+      <property name="javax.persistence.jdbc.password" value="ghost"/>
+
+      <!-- Hibernate-Einstellungen -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+      <!-- erzeugt/aktualisiert Tabellen automatisch (nur für Entwicklung) -->
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>
