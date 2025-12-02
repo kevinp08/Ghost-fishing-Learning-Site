@@ -1,0 +1,139 @@
+/* Breiter Rahmen für Listen-Seiten */ 
+.container-wide {
+	width: 98vw;
+	max-width: 1800px; /* ggf. 2000px oder none */
+	margin: 60px auto;
+	padding: 0 24px;
+} 
+	
+/* Weißer Kasten füllt Container */ 
+.card {
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+	padding: 32px;
+	width: 100%;
+	overflow-x: auto; /* Sicherheit */
+} 
+	
+/* Tabelle nutzt volle Breite im Kasten */ 
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: auto; /* Spalten werden nach Inhalt verteilt */
+	margin: 0 auto 12px;
+} 
+	
+/* Spalten gezielt breiter machen */ 
+.col-id {
+	width: 80px;
+} 
+	
+.col-coord { 
+	width: 260px;
+}
+
+/* Koordinaten */ 
+.col-size {
+	width: 120px;
+}
+.col-status {
+	width: 220px;
+} /* Status */ 
+.col-claimer {
+	width: 260px;
+} /* Bergender */ 
+
+.col-action { 
+	width: 320px;
+} 
+
+/* Aktion */ 
+/* Zellen-Layout */ 
+.table th,
+.table td {
+	padding: 12px 14px;
+	border: 1px solid #e6eaf0;
+	vertical-align: middle;
+	text-align: left;
+	white-space: nowrap;
+} 
+	
+/* Lange Inhalte dürfen umbrechen, wo sinnvoll */ 
+.coords,
+.btn-claim,
+.btn-done,
+.btn-warn,
+.claimer-phone {
+	white-space: normal;
+	word-break: break-word;
+} 
+
+/* Tabellenkopf */ 
+.table thead th {
+	background: #2f6bd9;
+	color: #fff;
+	font-weight: 600;
+	border-color: #2a5ec0;
+	text-align: center;
+}
+
+/* =========================
+   Button-Styles (JSF + PrimeFaces)
+   ========================= */
+.btn,
+.btn-claim,
+.btn-done,
+.btn-warn,
+.ui-button.btn,
+.ui-button.btn-claim,
+.ui-button.btn-done,
+.ui-button.btn-warn {
+	display: inline-block;
+	padding: 10px 18px;
+	font-size: 15px;
+	font-weight: 600;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	text-decoration: none;
+	color: #fff;
+	background: #2f6bd9;
+	text-align: center;
+	transition: background 0.2s ease, filter 0.2s ease;
+}
+
+/* Standard / Claim-Button (blau) */
+.btn,
+.btn-claim,
+.ui-button.btn,
+.ui-button.btn-claim {
+	background: #2f6bd9;
+}
+.btn:hover,
+.btn-claim:hover,
+.ui-button.btn:hover,
+.ui-button.btn-claim:hover {
+	background: #2659b8;
+}
+
+/* Done-Button (grün) */
+.btn-done,
+.ui-button.btn-done {
+	background: #2a9d3f;
+}
+.btn-done:hover,
+.ui-button.btn-done:hover {
+	background: #238536;
+}
+
+/* Warn-Button (gelb) */
+.btn-warn,
+.ui-button.btn-warn {
+	background: #eab308;
+	color: #111;
+}
+.btn-warn:hover,
+.ui-button.btn-warn:hover {
+	filter: brightness(0.95);
+}

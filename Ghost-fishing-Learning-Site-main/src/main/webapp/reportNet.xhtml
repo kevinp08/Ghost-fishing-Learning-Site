@@ -1,0 +1,33 @@
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://xmlns.jcp.org/jsf/html" 
+xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+<h:head> <title>Geisternetz melden</title> 
+<h:outputStylesheet library="css" name="styles.css"/> </h:head> 
+
+<h:body> <div class="container"> <div class="card"> <h1>Geisternetz melden</h1> 
+
+<h:messages globalOnly="true" styleClass="messages"/> <h:form> <label>Breite (Latitude):</label> 
+
+<h:inputText value="#{reportNetController.net.latitude}" required="true" requiredMessage="Latitude ist erforderlich" converterMessage="Bitte Zahl eingeben (z. B. 54,123456)"> 
+<f:convertNumber type="number" locale="de_DE" maxFractionDigits="6"/> 
+<f:ajax event="blur" render="@this"/> </h:inputText> <label>Länge (Longitude):</label> 
+
+<h:inputText value="#{reportNetController.net.longitude}" required="true" requiredMessage="Longitude ist erforderlich" converterMessage="Bitte Zahl eingeben (z. B. 10,123456)"> 
+<f:convertNumber type="number" locale="de_DE" maxFractionDigits="6"/> 
+<f:ajax event="blur" render="@this"/> </h:inputText> <label>Größe (m²):</label> 
+
+<h:inputText value="#{reportNetController.net.size}" required="true" requiredMessage="Größe ist erforderlich" converterMessage="Bitte ganze Zahl ≥ 1"> <!-- liefert Long, passt zum Model --> 
+<f:convertNumber integerOnly="true"/> <!-- UI-Validierung schon im JSF-Layer --> 
+<f:validateLongRange minimum="1"/> <f:ajax event="blur" render="@this"/> </h:inputText> 
+
+<h:commandButton value="Speichern" action="#{reportNetController.save}" styleClass="btn"/> 
+<h:link outcome="index" value="Abbrechen" styleClass="btn"/> </h:form> 
+
+</div> 
+
+</div> 
+
+</h:body> 
+
+</html>

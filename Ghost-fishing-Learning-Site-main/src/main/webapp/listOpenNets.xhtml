@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Offene Geisternetze</title>
+    <h:outputStylesheet library="css" name="styles.css"/>
+</h:head>
+
+<h:body>
+<div class="container-wide">
+    <div class="card">
+
+        <h2>Offene Geisternetze</h2>
+
+        <!-- HIER: messages bekam eine ID -->
+        <h:messages id="messages" globalOnly="true" styleClass="messages" />
+
+        <h:form id="listForm">
+
+            <div class="table-responsive">
+
+                <h:dataTable value="#{listController.openNets}"
+                             var="n"
+                             styleClass="table"
+                             headerClass="th"
+                             columnClasses="col-id, col-coord, col-size, col-status, col-claimer, col-action">
+
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{n.id}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Koordinaten</f:facet>
+                        <span class="coords">#{n.latitude}, #{n.longitude}</span>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Größe (m²)</f:facet>
+                        #{n.size}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Status</f:facet>
+                        #{n.status}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Bergender</f:facet>
+
+                        <h:panelGroup rendered="#{empty n.retrieverName}">
+                            —
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{not empty n.retrieverName}">
+                            <strong>#{n.retrieverName}</strong>
+                            <h:panelGroup rendered="#{not empty n.retrieverPhone}">
+                                <span class="claimer-phone"> (#{n.retrieverPhone})</span>
+                            </h:panelGroup>
+                        </h:panelGroup>
+
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Aktion</f:facet>
+
+                        <h:panelGroup rendered="#{empty n.retrieverName}">
+                            <p:commandButton value="Bergung übernehmen"
+                                             action="#{listController.openClaimDialog(n.id)}"
+                                             update=":claimDialog"
+                                             oncomplete="PF('claimDlg').show()"
+                                             styleClass="btn btn-claim"/>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{not empty n.retrieverName}">
+                            <h:commandButton value="Als geborgen melden"
+                                             action="#{listController.markRecovered(n.id)}"
+                                             styleClass="btn btn-done"/>
+                            <h:commandButton value="Als verschollen melden"
+                                             action="#{listController.markLost(n.id)}"
+                                             styleClass="btn btn-warn"/>
+                        </h:panelGroup>
+
+                    </h:column>
+
+                </h:dataTable>
+
+            </div>
+
+            <h:link outcome="index" value="← Zurück zur Startseite" styleClass="btn"/>
+
+        </h:form>
+
+        <!-- ========================================= -->
+        <!-- POPUP-DIALOG (AUSSERHALB DER TABELLE!)   -->
+        <!-- ========================================= -->
+        <p:dialog id="claimDialog" widgetVar="claimDlg"
+                  modal="true" header="Bergung übernehmen" width="450">
+
+            <h:form id="claimForm">
+
+                <h:panelGrid columns="1" style="width:100%" columnClasses="label,value">
+
+                    <h:outputLabel value="Name:"/>
+                    <h:inputText value="#{listController.claimName}" required="true"/>
+
+                    <h:outputLabel value="Telefon:"/>
+                    <h:inputText value="#{listController.claimPhone}" required="true"/>
+
+                </h:panelGrid>
+
+                <br/>
+
+                <p:commandButton value="Speichern"
+                                 action="#{listController.saveClaim}"
+                                 update=":listForm :messages"
+                                 oncomplete="PF('claimDlg').hide()"
+                                 styleClass="btn btn-done"/>
+
+                <p:commandButton value="Abbrechen"
+                                 onclick="PF('claimDlg').hide();return false;"
+                                 styleClass="btn btn-warn"/>
+
+            </h:form>
+
+        </p:dialog>
+
+    </div>
+</div>
+</h:body>
+</html>
